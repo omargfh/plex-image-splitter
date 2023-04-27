@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Next.js + Tailwind CSS + TypeScript Starter',
-  siteName: 'Next.js + Tailwind CSS + TypeScript Starter',
+  title: 'Plex - Split Images',
+  siteName: 'Plex - Split Images',
   description:
-    'A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, Seo, Link component, pre-configured with Husky',
+    'Split images into multiple images with a single click. No need to use Photoshop or other image editors. Just upload your image and split it into multiple images.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://tsnext-tw.thcl.dev',
+  url: 'https://plex.omar-ibrahim.com',
   type: 'website',
   robots: 'follow, index',
   /**
