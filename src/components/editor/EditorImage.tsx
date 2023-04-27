@@ -5,6 +5,7 @@ import { useEditor } from '@/store/editor';
 const EditorImage = ({ setFill }: { setFill: CallableFunction }) => {
   const { state } = useEditor();
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const [hasImage, setHasImage] = React.useState(false);
   const adjustFillOnChanges = () => {
     if (!(imageRef && imageRef.current)) return;
     const container: [number, number] = [
@@ -29,12 +30,20 @@ const EditorImage = ({ setFill }: { setFill: CallableFunction }) => {
       window.removeEventListener('resize', adjustFillOnChanges);
     };
   }, []);
+
+  const handleLoad = () => {
+    setHasImage(true);
+    adjustFillOnChanges();
+  };
+
   return (
     <img
       src={state.activeSrc}
       alt='Active Image'
       ref={imageRef}
-      onLoad={adjustFillOnChanges}
+      onLoad={handleLoad}
+      onError={() => setHasImage(false)}
+      className={`${hasImage ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
       style={{
         transform: `scale(1)`,
         position: 'absolute',

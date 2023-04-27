@@ -6,6 +6,7 @@ import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
 import { EditorProvider } from '@/store/editor';
+import EditorExporting from '@/components/editor/EditorExporting';
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <Seo />
 
       <EditorProvider>
+        <EditorExporting />
         <div className='flex'>
           <aside className='h-screen w-[320px]'>
             <EditorSidebar />

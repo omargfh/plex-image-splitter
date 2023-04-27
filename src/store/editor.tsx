@@ -22,6 +22,7 @@ interface EditorState {
     splits: Split[],
     offset: number
   }
+  exporting: boolean
 }
 
 // Constants
@@ -30,13 +31,14 @@ export const MAX_HISTORY = 30
 
 // Initial state
 const initialState: EditorState = {
-  activeSrc: 'https://i.ibb.co/2dGzBkY/17505-mid-transformed.jpg',
+  activeSrc: '',
   horizontalSplit: [],
   verticalSplit: [],
   history: {
     splits: [],
     offset: 0,
-  }
+  },
+  exporting: false,
 }
 
 // Actions
@@ -205,6 +207,7 @@ const reducerHelper = (state: EditorState, action: any) => {
             }
           }
         }
+        return state
       case 'REDO':
         if (state.history.offset < state.history.splits.length - 1) {
           const offset = state.history.offset + 1
@@ -217,6 +220,7 @@ const reducerHelper = (state: EditorState, action: any) => {
             }
           }
         }
+        return state
       case 'PUSH_HISTORY':
         return {
           ...state,
@@ -240,6 +244,13 @@ const reducerHelper = (state: EditorState, action: any) => {
           a.download = 'export.zip'
           a.click()
         }, 0);
+        return state
+      case 'SET_EXPORTING_FLAG':
+        return {
+          ...state,
+          exporting: action.payload.exporting,
+        }
+      default:
         return state
     }
 }
