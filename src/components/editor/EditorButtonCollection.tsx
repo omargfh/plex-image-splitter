@@ -13,23 +13,34 @@ const EditorButtonCollection = () => {
   const { state, dispatch } = useEditor();
   return (
     <>
-      <Boundary />
+     {/* Editor Tools */}
+      <div className='pt-4'>
+        <h2 className='text-xl font-bold'>Editor Tools</h2>
+        <Boundary />
+      </div>
       <Button
-        onClick={() =>
-          dispatch({ type: 'SUBDIVIDE_LINES', payload: { count: 1 } })
-        }
+        onClick={() => dispatch({ type: 'SUBDIVIDE_LINES', payload: { count: 1 } }) }
         disabled={
           state.horizontalSplit.length >= MAX_SPLITS / 2 ||
-          state.verticalSplit.length >= MAX_SPLITS / 2
-        }
-      >
-        Subdivide
-      </Button>
+          state.verticalSplit.length >= MAX_SPLITS / 2 ||
+          state.exporting || !state.active
+        }>Subdivide</Button>
       <EditorTools />
+
+      {/* Presets */}
+      <div className='pt-4'>
+        <h2 className='text-xl font-bold'>Presets</h2>
+        <Boundary />
+      </div>
       <div className='grid grid-cols-3 gap-2'>
         <EditorPresets />
       </div>
-      <Boundary />
+
+      {/* History & Export */}
+      <div className='pt-5'>
+        <h2 className='text-xl font-bold'>History & Export</h2>
+        <Boundary />
+      </div>
       <div className='grid grid-cols-3 gap-2'>
         <EditorUndoRedo />
       </div>

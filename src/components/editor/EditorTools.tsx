@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Button from '@/components/buttons/Button';
 
@@ -16,7 +16,7 @@ const EditorPresets = () => {
               payload: { count: 1 },
             })
           }
-          disabled={state.horizontalSplit.length >= MAX_SPLITS / 2}
+          disabled={state.horizontalSplit.length >= MAX_SPLITS / 2 || !state.active || state.exporting}
         >
           H-Split
         </Button>
@@ -27,7 +27,7 @@ const EditorPresets = () => {
               payload: { count: 1 },
             })
           }
-          disabled={state.verticalSplit.length >= MAX_SPLITS / 2}
+          disabled={state.verticalSplit.length >= MAX_SPLITS / 2 || !state.active || state.exporting}
         >
           V-Split
         </Button>
@@ -35,7 +35,7 @@ const EditorPresets = () => {
           onClick={() =>
             dispatch({ type: 'ADD_NEW_HLINE', payload: { count: 1 } })
           }
-          disabled={state.horizontalSplit.length >= MAX_SPLITS}
+          disabled={state.horizontalSplit.length >= MAX_SPLITS || !state.active || state.exporting}
         >
           <img
             src='/images/svg/Plus.svg'
@@ -51,7 +51,7 @@ const EditorPresets = () => {
           onClick={() =>
             dispatch({ type: 'ADD_NEW_VLINE', payload: { count: 1 } })
           }
-          disabled={state.verticalSplit.length >= MAX_SPLITS}
+          disabled={state.verticalSplit.length >= MAX_SPLITS || !state.active || state.exporting}
         >
           <img
             src='/images/svg/Plus.svg'

@@ -22,7 +22,8 @@ interface EditorState {
     splits: Split[],
     offset: number
   }
-  exporting: boolean
+  exporting: boolean,
+  active: boolean,
 }
 
 // Constants
@@ -39,23 +40,8 @@ const initialState: EditorState = {
     offset: 0,
   },
   exporting: false,
+  active: false,
 }
-
-// Actions
-const setActiveSrc = (payload: string) => ({
-  type: 'setActiveSrc',
-  payload,
-})
-
-const setHorizontalSplit = (payload: SplitLine[]) => ({
-  type: 'setHorizontalSplit',
-  payload,
-})
-
-const setVerticalSplit = (payload: SplitLine[]) => ({
-  type: 'setVerticalSplit',
-  payload,
-})
 
 // Actions
 const _subdivide = (splits: SplitLine[], count: number) => {
@@ -249,6 +235,16 @@ const reducerHelper = (state: EditorState, action: any) => {
         return {
           ...state,
           exporting: action.payload.exporting,
+        }
+      case 'SET_EDITOR_ACTIVE':
+        return {
+          ...state,
+          active: true
+        }
+      case 'SET_EDITOR_INACTIVE':
+        return {
+          ...state,
+          active: false
         }
       default:
         return state

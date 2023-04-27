@@ -6,7 +6,7 @@ import UnderlineLink from '@/components/links/UnderlineLink';
 const EditorSidebar = () => {
   return (
     <div className='flex h-screen w-full flex-col justify-center gap-9 overflow-y-auto bg-gray-900 px-4 text-white'>
-      <div className='flex h-screen flex-col justify-center gap-2 overflow-y-scroll'>
+      <div className='flex h-screen flex-col justify-center gap-2 overflow-y-scroll scrollbar-hide'>
         <img
           src='/images/svg/Logo.svg'
           alt='logo'
@@ -16,7 +16,6 @@ const EditorSidebar = () => {
         <EditorImageInput />
         <EditorButtonCollection />
         <footer className='border-gray-700 pt-1 text-center text-xs'>
-          <Boundary />
           <p className='pt-4 text-center'>
             Created by{' '}
             <UnderlineLink href='https://github.com/omargfh'>

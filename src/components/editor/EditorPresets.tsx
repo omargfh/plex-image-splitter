@@ -5,17 +5,17 @@ import Button from '@/components/buttons/Button';
 import { useEditor } from '@/store/editor';
 
 const EditorPresets = () => {
-  const { dispatch } = useEditor();
+  const { state, dispatch } = useEditor();
   return (
     <>
-      <Button onClick={() => dispatch({ type: 'CLEAR_LINES', payload: {} })}>
+      <Button
+        disabled={state.exporting || !state.active}
+        onClick={() => dispatch({ type: 'CLEAR_LINES', payload: {} })}>
         <img src='/images/svg/Clear.svg' alt='Clear' width={28} height={28} />
       </Button>
       <Button
-        onClick={() =>
-          dispatch({ type: 'SUBDIVIDE_LINES_ITR', payload: { itr: 1 } })
-        }
-      >
+        disabled={state.exporting || !state.active}
+        onClick={() => dispatch({ type: 'SUBDIVIDE_LINES_ITR', payload: { itr: 1 } }) } >
         <img
           src='/images/svg/2x2.svg'
           alt='Preset Square 2x2'
@@ -24,6 +24,7 @@ const EditorPresets = () => {
         />
       </Button>
       <Button
+        disabled={state.exporting || !state.active}
         onClick={() =>
           dispatch({ type: 'SUBDIVIDE_LINES_ITR', payload: { itr: 2 } })
         }
@@ -36,6 +37,7 @@ const EditorPresets = () => {
         />
       </Button>
       <Button
+        disabled={state.exporting || !state.active}
         onClick={() =>
           dispatch({ type: 'SUBDIVIDE_LINES_ITR', payload: { itr: 3 } })
         }
@@ -48,6 +50,7 @@ const EditorPresets = () => {
         />
       </Button>
       <Button
+        disabled={state.exporting || !state.active}
         onClick={() =>
           dispatch({
             type: 'SPLIT_INTO_TWO_HORIZONTAL_COMPONENTS',
@@ -63,6 +66,7 @@ const EditorPresets = () => {
         />
       </Button>
       <Button
+        disabled={state.exporting || !state.active}
         onClick={() =>
           dispatch({ type: 'SPLIT_INTO_TWO_VERTICAL_COMPONENTS', payload: {} })
         }

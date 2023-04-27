@@ -16,6 +16,7 @@ type ButtonProps = {
   rightIcon?: IconType;
   leftIconClassName?: string;
   rightIconClassName?: string;
+  // tooltip?: string;
 } & React.ComponentPropsWithRef<'button'>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -37,7 +38,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const disabled = isLoading || buttonDisabled;
-
+    const [isHovered, setIsHovered] = React.useState(false);
     return (
       <button
         ref={ref}
@@ -59,6 +60,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             variant === 'primary' && [
               'bg-primary-500 text-white',
               'border-primary-600 border',
+              'relative',
               'hover:bg-primary-600 hover:text-white',
               'active:bg-primary-700',
               'rounded border border-gray-500 bg-gray-800 p-2 text-white hover:bg-gray-500 focus:outline-none',
@@ -149,6 +151,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </div>
         )}
+        {/* {tooltip && <span className={`{isHovered ?} content-["coooool"] absolute inset-0 rounded border border-gray-500 bg-gray-800 p-2 hover:block top-5 left-5 text-white hover:bg-gray-800 focus:outline-none w-fit h-fit z-40`}>
+          {tooltip}
+        </span>} */}
       </button>
     );
   }
