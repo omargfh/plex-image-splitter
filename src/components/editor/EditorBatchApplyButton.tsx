@@ -54,7 +54,6 @@ const EditorBatchApplyButton = () => {
       />
       <Button
         disabled={state.exporting || !state.active}
-        tooltip='Batch Apply'
         onClick={() => inputRef.current?.click()}>Batch Apply</Button>
 
     </>
