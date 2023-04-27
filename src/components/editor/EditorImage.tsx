@@ -28,7 +28,7 @@ const EditorImage = ({ setFill }: { setFill: CallableFunction }) => {
     return () => {
       window.removeEventListener('resize', adjustFillOnChanges);
     };
-  });
+  }, []);
   return (
     <img
       src={state.activeSrc}
