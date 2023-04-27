@@ -20,14 +20,28 @@ export const exportImages = async (state: EditorState, src: string[]): Blob => {
 
     // Create a an array of all necessary splits
     let splits: { x: number; y: number; width: number; height: number }[] = [];
-    const supplement = (splits: SplitLine[]) => [
-      { position: 0, size: 100 },
-      ...splits,
-      { position: 100, size: 100 },
-    ];
+    const cleanUp = (splits: SplitLine[]) => {
+      // add 0 and 100
+      let supplemented = [
+        { position: 0, size: 100 },
+        ...splits,
+        { position: 100, size: 100 },
+      ];
+      // sort by position
+      supplemented = supplemented.sort((a, b) => a.position - b.position);
+
+      // remove duplicates
+      supplemented = supplemented.filter(
+        (split, index) =>
+          index === 0 || split.position !== supplemented[index - 1].position
+      );
+
+      return supplemented;
+    };
+
     const [hsplits, vsplits] = [
-      supplement(state.horizontalSplit),
-      supplement(state.verticalSplit),
+      cleanUp(state.horizontalSplit),
+      cleanUp(state.verticalSplit),
     ];
     for (let i = 0; i < hsplits.length - 1; i++) {
       for (let j = 0; j < vsplits.length - 1; j++) {
