@@ -8,7 +8,7 @@ const EditorSidebar = () => {
     <div className='flex h-screen w-full flex-col justify-center gap-9 overflow-y-auto bg-gray-900 px-4 text-white'>
       <div className='flex h-screen flex-col justify-center gap-2 overflow-y-scroll'>
         <img
-          src='/images/svg/logo.svg'
+          src='/images/svg/Logo.svg'
           alt='logo'
           className='mx-auto w-24 pb-2'
           style={{ filter: 'brightness(100)' }}
