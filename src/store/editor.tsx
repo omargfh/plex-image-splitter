@@ -91,6 +91,10 @@ const reducerHelper = (state: EditorState, action: any) => {
     case 'setActiveSrc':
       return {
         ...state,
+        history: {
+          splits: [],
+          offset: 0,
+        },
         activeSrc: action.payload.src,
       }
     case 'SUBDIVIDE_LINES':
@@ -251,6 +255,13 @@ const reducerHelper = (state: EditorState, action: any) => {
     }
 }
 
+const HISTORY_AGNOSTIC_ACTIONS = [
+  'SET_LINE_POSITION',
+  'UNDO',
+  'REDO',
+  'PUSH_HISTORY',
+  'EXPORT',
+]
 const reducer = (state: EditorState, action: any) => {
   const newState = reducerHelper(state, action)
 
@@ -261,11 +272,20 @@ const reducer = (state: EditorState, action: any) => {
     if (newState.verticalSplit.length > MAX_SPLITS) {
       return state
     }
-    if (newState !== state && !(['SET_LINE_POSITION', 'UNDO', 'REDO', 'PUSH_HISTORY', 'EXPORT'].includes(action.type))) {
-      newState.history.splits.push({
-        horizontalSplit: [...state.horizontalSplit],
-        verticalSplit: [...state.verticalSplit],
-      })
+    if (newState !== state && !(HISTORY_AGNOSTIC_ACTIONS.includes(action.type))) {
+      if (state.history.offset < state.history.splits.length - 1) {
+        newState.history.splits = newState.history.splits.slice(0, state.history.offset + 1)
+      }
+      newState.history = {
+        splits: [
+          ...newState.history.splits,
+          {
+            horizontalSplit: [...newState.horizontalSplit],
+            verticalSplit: [...newState.verticalSplit],
+          }
+        ],
+        offset: newState.history.splits.length,
+      }
       if (newState.history.splits.length > MAX_HISTORY) {
         newState.history.splits.shift()
       }
